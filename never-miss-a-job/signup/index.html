@@ -16,6 +16,13 @@ textarea:focus{outline:3px solid #bfd3ff;border-color:var(--brand)}
 .formbox{background:#fff;border:1px solid var(--line);border-radius:20px;padding:26px}
 fieldset{border:0;padding:0;margin:0;display:grid;gap:14px}legend{font-weight:800;font-size:1.05rem;margin-bottom:6px}
 .status{border-radius:12px;padding:14px 16px;font-weight:600}.status.ok{background:#ecfdf3;border:1px solid #bbf7d0}.status.bad{background:#fef2f2;border:1px solid #fecaca}
+.promo-box{margin-top:6px}
+.promo-box--bf{background:#fff7ed;border:2px solid var(--accent);border-radius:14px;padding:14px 16px}
+.promo-box label{font-weight:800}
+.promo-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:8px}
+.promo-row input{flex:1 1 180px;width:auto;min-width:0;margin-top:0}
+.promo-row .btn{padding:12px 16px}
+.promo-ok{color:#166534;font-weight:700;background:#ecfdf3;border:1px solid #bbf7d0;border-radius:10px;padding:10px 12px;margin:12px 0 0}
 </style>
 </head>
 <body>
@@ -62,9 +69,14 @@ fieldset{border:0;padding:0;margin:0;display:grid;gap:14px}legend{font-weight:80
           <option value="pro">Pro: £169/month + VAT, 600 call minutes included</option>
           <option value="complete">Complete: £249/month + VAT, 1,000 call minutes included</option>
         </select></label>
-      <p class="small" id="setup-summary" style="margin:0"></p>
-      <label>Promo code <span class="hint">Optional.</span>
-        <input name="promo_code" id="promo_code" maxlength="40" autocomplete="off" placeholder="BLACKFRIDAY"></label>
+      <div id="promo-box" class="promo-box promo-box--bf">
+        <label id="promo-label" for="promo_code">Black Friday: enter BLACKFRIDAY for free setup (until 1 Dec)</label>
+        <div class="promo-row">
+          <input name="promo_code" id="promo_code" maxlength="40" autocomplete="off" placeholder="BLACKFRIDAY">
+          <button type="button" class="btn btn-primary" id="apply-bf">Apply BLACKFRIDAY</button>
+        </div>
+        <p class="small" id="setup-summary" style="margin:0"></p>
+      </div>
     </fieldset>
 
     <fieldset style="margin-top:10px">
@@ -103,11 +115,19 @@ fieldset{border:0;padding:0;margin:0;display:grid;gap:14px}legend{font-weight:80
   if(q.get('cancelled')){show('bad','You left the payment page, so your trial hasn\'t started yet. Nothing has been charged. Press the button below to try again.');}
   var pl=document.getElementById('plan');if(/^(starter|pro|complete)$/.test(q.get('plan')||'')){pl.value=q.get('plan');}
   var promo=document.getElementById('promo_code'),summary=document.getElementById('setup-summary');
+  var promoBox=document.getElementById('promo-box'),promoLabel=document.getElementById('promo-label'),applyBf=document.getElementById('apply-bf');
   if(q.get('promo')) promo.value=q.get('promo');
+  function londonStamp(d){
+    var parts={};new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/London',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(d).forEach(function(p){if(p.type!=='literal')parts[p.type]=p.value;});
+    return parts.year+parts.month+parts.day+parts.hour+parts.minute;
+  }
+  var bfOn=londonStamp(new Date())<='202612012359';
+  if(!bfOn){promoBox.classList.remove('promo-box--bf');promoLabel.textContent='Promo code';promo.placeholder='';applyBf.hidden=true;}
+  applyBf.addEventListener('click',function(){promo.value='BLACKFRIDAY';renderSetup();});
   var setupFees={starter:495,pro:695,complete:995};
   function renderSetup(){
     var fee=setupFees[pl.value]||495, on=promo.value.trim().toUpperCase()==='BLACKFRIDAY';
-    summary.textContent='';
+    summary.textContent='';summary.classList.toggle('promo-ok',on);
     if(on){summary.append('One-off setup: ');var s=document.createElement('s');s.textContent='£'+fee+' setup + VAT';summary.appendChild(s);summary.append(' £0 + VAT with BLACKFRIDAY. The monthly price is unchanged.');}
     else summary.textContent='One-off setup: £'+fee+' setup + VAT.';
   }
