@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sign up – Never miss a job AI receptionist | Cloudflux</title>
+<meta name="description" content="Set up your own AI receptionist in a few minutes. Tell us about your business and we'll email you everything you need to start diverting missed calls.">
+<link rel="stylesheet" href="/styles.css">
+<style>
+textarea{width:100%;padding:13px;border:1px solid #cbd5e1;border-radius:10px;font:inherit;margin-top:4px;background:#fff;min-height:84px;resize:vertical}
+textarea:focus{outline:3px solid #bfd3ff;border-color:var(--brand)}
+.hint{display:block;font-weight:400;font-size:.85rem;color:var(--muted)}
+.err{display:block;color:#b91c1c;font-weight:600;font-size:.85rem;margin-top:4px}
+.hp{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}
+.note{background:#eef4ff;border:1px solid #bfd3ff;border-radius:12px;padding:14px 16px;font-size:.95rem}
+.formbox{background:#fff;border:1px solid var(--line);border-radius:20px;padding:26px}
+fieldset{border:0;padding:0;margin:0;display:grid;gap:14px}legend{font-weight:800;font-size:1.05rem;margin-bottom:6px}
+.status{border-radius:12px;padding:14px 16px;font-weight:600}.status.ok{background:#ecfdf3;border:1px solid #bbf7d0}.status.bad{background:#fef2f2;border:1px solid #fecaca}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="logo" href="/never-miss-a-job/">Never miss a <span>job</span></a>
+  <nav><a class="hide-sm" href="/never-miss-a-job/#how">How it works</a><a class="hide-sm" href="/never-miss-a-job/#pricing">Pricing</a><a href="/never-miss-a-job/#faq">FAQ</a></nav>
+</div></header>
+
+<main>
+<section class="alt"><div class="wrap" style="max-width:760px">
+  <p class="kicker">Get started</p>
+  <h1 style="font-size:clamp(1.9rem,5vw,2.8rem)">Set up your AI receptionist</h1>
+  <p class="lead">Tell us about your business. We'll build your receptionist straight away and email you your test link, your number and the simple steps to divert missed calls to it.</p>
+  <p class="note"><strong>Just so you know:</strong> this is an AI receptionist, not a person. It tells every caller it's an AI assistant answering for your business and that the call may be recorded. It takes their details and emails them to you. It never quotes prices or gives professional advice.</p>
+
+  <div id="status" role="status" aria-live="polite"></div>
+
+  <form id="signup-form" class="formbox" action="https://cloudflux-onboarding.cloudflux-uk.workers.dev/signup" method="post" novalidate aria-label="Never miss a job sign-up">
+    <fieldset>
+      <legend>Your business</legend>
+      <label>Business name<input name="business_name" autocomplete="organization" maxlength="80" required></label>
+      <label>Business type
+        <select name="business_type" id="business_type" required>
+          <option value="">Choose…</option>
+<optgroup label="Trades"><option value="plumber">Plumber</option><option value="heating_engineer">Heating engineer</option><option value="electrician">Electrician</option><option value="builder">Builder</option><option value="roofer">Roofer</option><option value="locksmith">Locksmith</option><option value="handyman">Handyman</option><option value="other_trade" data-needs-text>Other trade</option></optgroup>
+<optgroup label="Offices and services"><option value="accountant">Accountant / bookkeeper</option><option value="estate_agent">Estate / letting agent</option><option value="solicitor">Solicitor</option><option value="small_office" data-needs-text>Small office / other</option></optgroup>
+<optgroup label="Other"><option value="other" data-needs-text>Other (tell us)</option></optgroup>
+        </select>
+      </label>
+      <label id="other-wrap" hidden>What does your business do?<input name="other_type_text" maxlength="60" placeholder="e.g. Tree surgeon, Dog groomer"></label>
+      <label>Areas you cover<input name="areas" maxlength="300" required placeholder="e.g. Warrington, Lymm and Stretton"></label>
+      <label>Opening hours<input name="hours" maxlength="200" required placeholder="e.g. Mon–Fri 8am–6pm, Sat 9am–1pm"></label>
+      <label>Urgent calls <span class="hint">Optional. Anything the receptionist should treat as urgent, or how you handle out-of-hours. Safety advice (like the gas emergency line for plumbing and heating) is built in.</span>
+        <textarea name="emergency_rules" maxlength="500" placeholder="e.g. Out-of-hours emergencies for existing customers only"></textarea></label>
+      <label>Anything else callers often ask? <span class="hint">Optional. Services you do or don't offer, call-out notes, parking, etc. The receptionist never quotes prices, so no need to add them.</span>
+        <textarea name="callout_notes" maxlength="500" placeholder="e.g. Domestic work only. We don't do commercial jobs."></textarea></label>
+    </fieldset>
+
+    <fieldset style="margin-top:10px">
+      <legend>Your plan</legend>
+      <label>Plan <span class="hint">Your free 30-day trial includes the same call minutes. Over the allowance it's 15p a minute, and we email you at 80%.</span>
+        <select name="plan" id="plan">
+          <option value="starter">Starter: £99/month, 300 call minutes included</option>
+          <option value="pro">Pro: £169/month, 600 call minutes included</option>
+          <option value="complete">Complete: £249/month, 1,000 call minutes included</option>
+        </select></label>
+    </fieldset>
+
+    <fieldset style="margin-top:10px">
+      <legend>You and your leads</legend>
+      <label>Your first name <span class="hint">Optional. The receptionist says this to callers, e.g. "Sam's out on a job". Leave blank and it says "the team".</span><input name="owner_name" autocomplete="given-name" maxlength="30"></label>
+      <label>Email for your leads <span class="hint">Every call summary goes here, and so does your welcome email.</span><input name="lead_email" type="email" autocomplete="email" maxlength="120" required></label>
+      <label>Your mobile <span class="hint">The phone your customers ring. We use it for setup help only.</span><input name="mobile" type="tel" autocomplete="tel" maxlength="16" required placeholder="07700 900123"></label>
+      <label>Local number <span class="hint">Optional. Start typing your town and pick it from the list, e.g. Burton upon Trent (01283). Your receptionist gets a number with that area code if one's free; if not, we'll use the nearest code and tell you.</span>
+        <input name="local_number" list="towns" maxlength="60" autocomplete="off" placeholder="Start typing a town…"></label>
+      <datalist id="towns"><option value="Aberdeen (01224)"></option><option value="Aberystwyth (01970)"></option><option value="Altrincham (0161)"></option><option value="Ashby-de-la-Zouch (01530)"></option><option value="Ashford (01233)"></option><option value="Aylesbury (01296)"></option><option value="Bangor (01248)"></option><option value="Barnsley (01226)"></option><option value="Barrow-in-Furness (01229)"></option><option value="Basingstoke (01256)"></option><option value="Bath (01225)"></option><option value="Bedford (01234)"></option><option value="Belfast (028)"></option><option value="Birkenhead (0151)"></option><option value="Birmingham (0121)"></option><option value="Blackburn (01254)"></option><option value="Blackpool (01253)"></option><option value="Bolton (01204)"></option><option value="Boston (01205)"></option><option value="Bournemouth (01202)"></option><option value="Bradford (01274)"></option><option value="Bridgend (01656)"></option><option value="Brighton (01273)"></option><option value="Bristol (0117)"></option><option value="Burnley (01282)"></option><option value="Burton upon Trent (01283)"></option><option value="Buxton (01298)"></option><option value="Cambridge (01223)"></option><option value="Cannock (01543)"></option><option value="Canterbury (01227)"></option><option value="Cardiff (029)"></option><option value="Carlisle (01228)"></option><option value="Chelmsford (01245)"></option><option value="Cheltenham (01242)"></option><option value="Chester (01244)"></option><option value="Chesterfield (01246)"></option><option value="Chichester (01243)"></option><option value="Coalville (01530)"></option><option value="Colchester (01206)"></option><option value="Corby (01536)"></option><option value="Coventry (024)"></option><option value="Crawley (01293)"></option><option value="Crewe (01270)"></option><option value="Darlington (01325)"></option><option value="Dartford (01322)"></option><option value="Derby (01332)"></option><option value="Doncaster (01302)"></option><option value="Dudley (01384)"></option><option value="Dundee (01382)"></option><option value="Durham (0191)"></option><option value="Eastbourne (01323)"></option><option value="Edinburgh (0131)"></option><option value="Exeter (01392)"></option><option value="Glasgow (0141)"></option><option value="Gloucester (01452)"></option><option value="Grantham (01476)"></option><option value="Great Yarmouth (01493)"></option><option value="Guildford (01483)"></option><option value="Halifax (01422)"></option><option value="Harrogate (01423)"></option><option value="Hartlepool (01429)"></option><option value="Hastings (01424)"></option><option value="Hereford (01432)"></option><option value="High Wycombe (01494)"></option><option value="Hinckley (01455)"></option><option value="Huddersfield (01484)"></option><option value="Hull (01482)"></option><option value="Ilkeston (0115)"></option><option value="Inverness (01463)"></option><option value="Ipswich (01473)"></option><option value="Isle of Wight (01983)"></option><option value="Kendal (01539)"></option><option value="Kettering (01536)"></option><option value="Kidderminster (01562)"></option><option value="King's Lynn (01553)"></option><option value="Lancaster (01524)"></option><option value="Leamington Spa (01926)"></option><option value="Leeds (0113)"></option><option value="Leek (01538)"></option><option value="Leicester (0116)"></option><option value="Leigh (01942)"></option><option value="Lichfield (01543)"></option><option value="Lincoln (01522)"></option><option value="Liverpool (0151)"></option><option value="Llandudno (01492)"></option><option value="London (020)"></option><option value="Loughborough (01509)"></option><option value="Luton (01582)"></option><option value="Macclesfield (01625)"></option><option value="Maidstone (01622)"></option><option value="Manchester (0161)"></option><option value="Mansfield (01623)"></option><option value="Market Harborough (01858)"></option><option value="Matlock (01629)"></option><option value="Medway (Chatham, Rochester) (01634)"></option><option value="Melton Mowbray (01664)"></option><option value="Middlesbrough (01642)"></option><option value="Milton Keynes (01908)"></option><option value="Nantwich (01270)"></option><option value="Newark (01636)"></option><option value="Newcastle upon Tyne (0191)"></option><option value="Newcastle-under-Lyme (01782)"></option><option value="Newport (01633)"></option><option value="Northampton (01604)"></option><option value="Northwich (01606)"></option><option value="Norwich (01603)"></option><option value="Nottingham (0115)"></option><option value="Nuneaton (024)"></option><option value="Oldham (0161)"></option><option value="Oxford (01865)"></option><option value="Perth (01738)"></option><option value="Peterborough (01733)"></option><option value="Plymouth (01752)"></option><option value="Poole (01202)"></option><option value="Portsmouth (023)"></option><option value="Preston (01772)"></option><option value="Reading (0118)"></option><option value="Redditch (01527)"></option><option value="Rotherham (01709)"></option><option value="Rugby (01788)"></option><option value="Runcorn (01928)"></option><option value="Salford (0161)"></option><option value="Salisbury (01722)"></option><option value="Scarborough (01723)"></option><option value="Sheffield (0114)"></option><option value="Shrewsbury (01743)"></option><option value="Slough (01753)"></option><option value="Solihull (0121)"></option><option value="Southampton (023)"></option><option value="Southend-on-Sea (01702)"></option><option value="Southport (01704)"></option><option value="St Albans (01727)"></option><option value="St Helens (01744)"></option><option value="Stafford (01785)"></option><option value="Stevenage (01438)"></option><option value="Stirling (01786)"></option><option value="Stockport (0161)"></option><option value="Stockton-on-Tees (01642)"></option><option value="Stoke-on-Trent (01782)"></option><option value="Stratford-upon-Avon (01789)"></option><option value="Sunderland (0191)"></option><option value="Sutton Coldfield (0121)"></option><option value="Swadlincote (01283)"></option><option value="Swansea (01792)"></option><option value="Swindon (01793)"></option><option value="Tamworth (01827)"></option><option value="Taunton (01823)"></option><option value="Telford (01952)"></option><option value="Torquay (01803)"></option><option value="Truro (01872)"></option><option value="Tunbridge Wells (01892)"></option><option value="Uttoxeter (01889)"></option><option value="Wakefield (01924)"></option><option value="Walsall (01922)"></option><option value="Warrington (01925)"></option><option value="Warwick (01926)"></option><option value="Watford (01923)"></option><option value="Wellingborough (01933)"></option><option value="Weston-super-Mare (01934)"></option><option value="Widnes (0151)"></option><option value="Wigan (01942)"></option><option value="Winchester (01962)"></option><option value="Woking (01483)"></option><option value="Wolverhampton (01902)"></option><option value="Worcester (01905)"></option><option value="Wrexham (01978)"></option><option value="Yeovil (01935)"></option><option value="York (01904)"></option></datalist>
+    </fieldset>
+
+    <div class="hp" aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="off"></label></div>
+
+    <label class="check"><input type="checkbox" name="authorised" required> <span>I run this business or I'm allowed to sign up on its behalf.</span></label>
+    <label class="check"><input type="checkbox" name="consent" required> <span>I've read the <a href="/privacy.html" target="_blank">privacy notice</a> and agree to the <a href="/dpa.html" target="_blank">data processing terms</a>. Cloudflux Limited will use these details to set up and run the service and to contact me about it.</span></label>
+    <button class="btn btn-primary" type="submit" id="submit-btn">Set up my receptionist</button>
+    <p class="small" style="margin:0">Free 30-day trial for founding customers, no card needed. Lead summaries come by email; WhatsApp alerts are coming later as an add-on.</p>
+  </form>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+  <p><strong style="color:#fff">Never miss a job</strong> is a service of Cloudflux Limited, a private limited company registered in England and Wales. Company number 16552311. Registered office: Mansion House, Manchester Road, Altrincham, Cheshire, WA14 4RW.</p>
+  <p><a href="mailto:hello@cloudflux.uk">hello@cloudflux.uk</a> · <a href="/privacy.html">Privacy notice</a> · <a href="/dpa.html">Data processing terms</a> · Prices exclude VAT.</p>
+  <p>© 2026 Cloudflux Limited.</p>
+</div></footer>
+<script>
+(function(){
+  var f=document.getElementById('signup-form'),st=document.getElementById('status'),btn=document.getElementById('submit-btn');
+  var sel=document.getElementById('business_type'),ow=document.getElementById('other-wrap');
+  function toggleOther(){var o=sel.options[sel.selectedIndex];var need=o&&o.hasAttribute('data-needs-text');ow.hidden=!need;ow.querySelector('input').required=!!need;}
+  sel.addEventListener('change',toggleOther);toggleOther();
+  var q=new URLSearchParams(location.search);if(q.get('error')){show('bad',q.get('error'));}
+  var pl=document.getElementById('plan');if(/^(starter|pro|complete)$/.test(q.get('plan')||'')){pl.value=q.get('plan');}
+  function show(kind,msg){st.innerHTML='';var d=document.createElement('p');d.className='status '+kind;d.textContent=msg;st.appendChild(d);st.scrollIntoView({behavior:'smooth',block:'center'});}
+  function clearErrs(){f.querySelectorAll('.err').forEach(function(e){e.remove();});}
+  function fieldErr(name,msg){var el=f.elements[name];if(!el)return;var s=document.createElement('span');s.className='err';s.textContent=msg;(el.closest('label')||el.parentNode).appendChild(s);}
+  f.addEventListener('submit',function(e){
+    e.preventDefault();clearErrs();
+    if(!f.checkValidity()){f.reportValidity();return;}
+    var data={};new FormData(f).forEach(function(v,k){data[k]=v;});
+    data.consent=f.elements.consent.checked;data.authorised=f.elements.authorised.checked;
+    btn.disabled=true;btn.textContent='Setting up your receptionist…';
+    fetch(f.action,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)})
+      .then(function(r){return r.json().catch(function(){return {ok:false,error:'Something went wrong. Please try again.'};});})
+      .then(function(res){
+        if(res.ok){f.hidden=true;show('ok',res.message||'Thanks, check your email.');
+          if(res.test_link){var p=document.createElement('p');p.innerHTML='Want to hear it now? <a target="_blank" rel="noopener">Talk to your receptionist in your browser</a>.';p.querySelector('a').href=res.test_link;st.appendChild(p);}
+        } else {show('bad',res.error||'Please check the form.');if(res.fields){Object.keys(res.fields).forEach(function(k){fieldErr(k,res.fields[k]);});}}
+      })
+      .catch(function(){show('bad','We couldn\'t reach our server. Please try again, or email hello@cloudflux.uk.');})
+      .finally(function(){btn.disabled=false;btn.textContent='Set up my receptionist';});
+  });
+})();
+</script>
+</body>
+</html>
