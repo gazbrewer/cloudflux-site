@@ -28,7 +28,7 @@ fieldset{border:0;padding:0;margin:0;display:grid;gap:14px}legend{font-weight:80
 <section class="alt"><div class="wrap" style="max-width:760px">
   <p class="kicker">Get started</p>
   <h1 style="font-size:clamp(1.9rem,5vw,2.8rem)">Set up your AI receptionist</h1>
-  <p class="lead">Tell us about your business. We'll build your receptionist straight away and email you your test link, your number and the simple steps to divert missed calls to it.</p>
+  <p class="lead">Tell us about your business. Next you'll enter your card details on a secure Stripe page. Nothing is charged until your 14-day trial ends: then your chosen plan and the setup fee are charged, and the setup fee is £0 with code BLACKFRIDAY. We'll email your test link, your number and the steps to divert missed calls.</p>
   <p class="note"><strong>Just so you know:</strong> this is an AI receptionist, not a person. It tells every caller it's an AI assistant answering for your business and that the call may be recorded. It takes their details and emails them to you. It never quotes prices or gives professional advice.</p>
 
   <div id="status" role="status" aria-live="polite"></div>
@@ -58,9 +58,9 @@ fieldset{border:0;padding:0;margin:0;display:grid;gap:14px}legend{font-weight:80
       <legend>Your plan</legend>
       <label>Plan <span class="hint">Your free 14-day trial includes the same call minutes. Over the allowance it's 15p a minute, and we email you at 80%.</span>
         <select name="plan" id="plan">
-          <option value="starter">Starter: £99/month, 300 call minutes included</option>
-          <option value="pro">Pro: £169/month, 600 call minutes included</option>
-          <option value="complete">Complete: £249/month, 1,000 call minutes included</option>
+          <option value="starter">Starter: £99/month + VAT, 300 call minutes included</option>
+          <option value="pro">Pro: £169/month + VAT, 600 call minutes included</option>
+          <option value="complete">Complete: £249/month + VAT, 1,000 call minutes included</option>
         </select></label>
       <p class="small" id="setup-summary" style="margin:0"></p>
       <label>Promo code <span class="hint">Optional.</span>
@@ -81,15 +81,16 @@ fieldset{border:0;padding:0;margin:0;display:grid;gap:14px}legend{font-weight:80
 
     <label class="check"><input type="checkbox" name="authorised" required> <span>I run this business or I'm allowed to sign up on its behalf.</span></label>
     <label class="check"><input type="checkbox" name="consent" required> <span>I've read the <a href="/privacy.html" target="_blank">privacy notice</a> and agree to the <a href="/dpa.html" target="_blank">data processing terms</a>. Cloudflux Limited will use these details to set up and run the service and to contact me about it.</span></label>
-    <button class="btn btn-primary" type="submit" id="submit-btn">Set up my receptionist</button>
-    <p class="small" style="margin:0">Free 14-day trial for founding customers. After 14 days your chosen monthly plan starts automatically unless you cancel before the trial ends. We'll email a reminder 3 days before it ends. You can cancel any time with 30 days' notice. Lead summaries come by email; WhatsApp alerts are coming later as an add-on.</p>
+    <button class="btn btn-primary" type="submit" id="submit-btn">Continue to secure card details</button>
+    <p class="small" style="margin:0">You'll enter card details on Stripe's secure page next. Nothing is charged during the 14-day trial. When it ends, your chosen monthly plan and the setup fee are charged (the setup fee is £0 with code BLACKFRIDAY). We'll email a reminder 3 days before. You can cancel any time with 30 days' notice. All prices exclude VAT, which is added at 20%.</p>
   </form>
 </div></section>
 </main>
 
 <footer><div class="wrap">
   <p><strong style="color:#fff">Never miss a job</strong> is a service of Cloudflux Limited, a private limited company registered in England and Wales. Company number 16552311. Registered office: Mansion House, Manchester Road, Altrincham, Cheshire, WA14 4RW.</p>
-  <p><a href="mailto:hello@cloudflux.uk">hello@cloudflux.uk</a> · <a href="/privacy.html">Privacy notice</a> · <a href="/dpa.html">Data processing terms</a> · Prices exclude VAT.</p>
+  <p><a href="mailto:hello@cloudflux.uk">hello@cloudflux.uk</a> · <a href="/privacy.html">Privacy notice</a> · <a href="/dpa.html">Data processing terms</a> · <a href="https://cloudflux-onboarding.cloudflux-uk.workers.dev/cancel">Cancel your plan</a></p>
+  <p>All prices exclude VAT, which is added at 20%.</p>
   <p>© 2026 Cloudflux Limited.</p>
 </div></footer>
 <script>
@@ -99,6 +100,7 @@ fieldset{border:0;padding:0;margin:0;display:grid;gap:14px}legend{font-weight:80
   function toggleOther(){var o=sel.options[sel.selectedIndex];var need=o&&o.hasAttribute('data-needs-text');ow.hidden=!need;ow.querySelector('input').required=!!need;}
   sel.addEventListener('change',toggleOther);toggleOther();
   var q=new URLSearchParams(location.search);if(q.get('error')){show('bad',q.get('error'));}
+  if(q.get('cancelled')){show('bad','You left the payment page, so your trial hasn\'t started yet. Nothing has been charged. Press the button below to try again.');}
   var pl=document.getElementById('plan');if(/^(starter|pro|complete)$/.test(q.get('plan')||'')){pl.value=q.get('plan');}
   var promo=document.getElementById('promo_code'),summary=document.getElementById('setup-summary');
   if(q.get('promo')) promo.value=q.get('promo');
@@ -106,8 +108,8 @@ fieldset{border:0;padding:0;margin:0;display:grid;gap:14px}legend{font-weight:80
   function renderSetup(){
     var fee=setupFees[pl.value]||495, on=promo.value.trim().toUpperCase()==='BLACKFRIDAY';
     summary.textContent='';
-    if(on){summary.append('One-off setup: ');var s=document.createElement('s');s.textContent='£'+fee;summary.appendChild(s);summary.append(' £0 with BLACKFRIDAY. The monthly price is unchanged.');}
-    else summary.textContent='One-off setup: £'+fee+'.';
+    if(on){summary.append('One-off setup: ');var s=document.createElement('s');s.textContent='£'+fee+' setup + VAT';summary.appendChild(s);summary.append(' £0 + VAT with BLACKFRIDAY. The monthly price is unchanged.');}
+    else summary.textContent='One-off setup: £'+fee+' setup + VAT.';
   }
   pl.addEventListener('change',renderSetup);promo.addEventListener('input',renderSetup);renderSetup();
   function show(kind,msg){st.innerHTML='';var d=document.createElement('p');d.className='status '+kind;d.textContent=msg;st.appendChild(d);st.scrollIntoView({behavior:'smooth',block:'center'});}
@@ -122,12 +124,13 @@ fieldset{border:0;padding:0;margin:0;display:grid;gap:14px}legend{font-weight:80
     fetch(f.action,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)})
       .then(function(r){return r.json().catch(function(){return {ok:false,error:'Something went wrong. Please try again.'};});})
       .then(function(res){
+        if(res.ok&&res.checkout_url){btn.textContent='Taking you to secure payment…';location.href=res.checkout_url;return;}
         if(res.ok){f.hidden=true;show('ok',res.message||'Thanks, check your email.');
           if(res.test_link){var p=document.createElement('p');p.innerHTML='Want to hear it now? <a target="_blank" rel="noopener">Talk to your receptionist in your browser</a>.';p.querySelector('a').href=res.test_link;st.appendChild(p);}
         } else {show('bad',res.error||'Please check the form.');if(res.fields){Object.keys(res.fields).forEach(function(k){fieldErr(k,res.fields[k]);});}}
       })
       .catch(function(){show('bad','We couldn\'t reach our server. Please try again, or email hello@cloudflux.uk.');})
-      .finally(function(){btn.disabled=false;btn.textContent='Set up my receptionist';});
+      .finally(function(){if(btn.textContent==='Taking you to secure payment…')return;btn.disabled=false;btn.textContent='Continue to secure card details';});
   });
 })();
 </script>
