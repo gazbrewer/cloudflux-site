@@ -46,6 +46,17 @@ ul.ticks li:before{content:"✓";position:absolute;left:0;color:var(--ok);font-w
 .amt{font-size:2.2rem;font-weight:800;letter-spacing:-.03em}.amt small{font-size:1rem;color:var(--muted);font-weight:600}
 .setup{color:var(--muted);margin-bottom:14px}.price ul{flex:1}.price .btn{text-align:center;margin-top:16px}
 .trial{background:#fff7ed;border:2px dashed var(--accent);border-radius:20px;padding:30px}
+.founder-banner{display:block;background:#fff7ed;color:var(--ink);text-align:center;text-decoration:none;font-weight:700;font-size:.95rem;line-height:1.4;padding:10px 16px;border-bottom:1px solid #fed7aa}
+.founder-banner:hover{background:#ffedd5}
+.calc{display:grid;gap:22px}
+.calc-inputs{display:grid;gap:14px}
+@media(min-width:760px){.calc-inputs{grid-template-columns:repeat(3,1fr)}}
+.calc label{font-weight:700;font-size:.95rem}
+.calc-out{background:#0b1f4d;color:#fff;border-radius:16px;padding:22px}
+.calc-out p{margin:0 0 .6em}
+.calc-figure{font-size:clamp(2.4rem,8vw,3.4rem);font-weight:800;letter-spacing:-.03em;line-height:1.05;margin:.1em 0 .25em}
+.calc-out .muted{color:#dbe6ff;font-size:.95rem}
+.places{display:inline-block;background:#0b1f4d;color:#fff;font-weight:800;border-radius:999px;padding:8px 14px;margin:0 0 16px}
 details{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:10px 0}
 summary{font-weight:700;cursor:pointer}details p{margin:.7em 0 0;color:var(--muted)}
 form{display:grid;gap:14px}label{font-weight:600;font-size:.95rem}

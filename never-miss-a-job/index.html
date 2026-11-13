@@ -17,6 +17,7 @@
 <body>
 <!-- Black Friday banner: delete this element after 1 Dec 2026 -->
 <a class="bf-banner" href="/never-miss-a-job/signup/?promo=BLACKFRIDAY">Black Friday: setup fee FREE (save up to £995 + VAT) with code BLACKFRIDAY by 1 December.</a>
+<a class="founder-banner" href="/never-miss-a-job/founders/">Burton-on-Trent founder offer: first 3 local firms only. Free first month, no card, then 50% off for life. See the places.</a>
 <header class="top"><div class="wrap">
   <a class="logo" href="/never-miss-a-job/"><img src="/assets/icon.svg" alt="" width="32" height="32">Never miss a <span>job</span></a>
   <nav><a class="hide-sm" href="#how">How it works</a><a class="hide-sm" href="#offices">Offices</a><a class="hide-sm" href="#pricing">Pricing</a><a class="hide-sm" href="#faq">FAQ</a><a class="nav-cta" href="/never-miss-a-job/signup/?promo=BLACKFRIDAY">Sign up</a></nav>
@@ -129,6 +130,34 @@
   <p class="small">Black Friday offer ends at 23:59 on 1 December 2026. It covers the one-off setup fee only. After the 14-day free trial, your chosen monthly plan starts automatically unless you cancel before the trial ends. We'll email a reminder 3 days before it ends. You can cancel any time with 30 days' notice.</p>
   </div></section>
 
+<section id="calculator" class="alt" aria-labelledby="calc-heading"><div class="wrap">
+  <p class="kicker">Estimate</p>
+  <h2 id="calc-heading">What missed calls could be costing you</h2>
+  <p class="lead">These figures are an estimate from the numbers you enter. They are not a forecast of jobs you will win.</p>
+  <form id="missed-calc" class="calc">
+    <div class="calc-inputs">
+      <label for="missed-calls">Missed calls per week
+        <input id="missed-calls" name="missed_calls" type="number" inputmode="decimal" min="0" step="1" value="5">
+      </label>
+      <label for="job-value">Average job value (£)
+        <input id="job-value" name="job_value" type="number" inputmode="decimal" min="0" step="1" value="250">
+      </label>
+      <label for="book-rate">Missed callers who'd have booked (%)
+        <input id="book-rate" name="book_rate" type="number" inputmode="decimal" min="0" max="100" step="1" value="30">
+      </label>
+    </div>
+    <div class="calc-out" aria-live="polite">
+      <p class="muted">Estimated lost revenue a year</p>
+      <p class="calc-figure" id="lost-revenue">£19,500</p>
+      <p id="lost-detail"></p>
+      <p id="starter-cost"></p>
+      <p id="starter-payback"></p>
+      <p class="muted" id="bf-cost" hidden></p>
+    </div>
+    <p><a class="btn btn-primary" href="/never-miss-a-job/signup/?promo=BLACKFRIDAY">Start with Starter</a></p>
+  </form>
+</div></section>
+
 <section id="trial"><div class="wrap">
   <div class="trial">
     <p class="kicker">Founding offer</p>
@@ -171,6 +200,31 @@
   <p><a href="/">Cloudflux Limited home</a></p>
   <p>© 2026 Cloudflux Limited. Kestrelford Plumbing &amp; Heating is a fictional business used for demonstration only.</p>
 </div></footer>
-
+<script>
+(function(){
+  var form=document.getElementById('missed-calc');
+  var calls=document.getElementById('missed-calls'),value=document.getElementById('job-value'),rate=document.getElementById('book-rate');
+  var lostEl=document.getElementById('lost-revenue'),detail=document.getElementById('lost-detail');
+  var costEl=document.getElementById('starter-cost'),payEl=document.getElementById('starter-payback'),bfEl=document.getElementById('bf-cost');
+  function num(el,max){var n=parseFloat(el.value);if(!isFinite(n)||n<0)n=0;if(max!=null&&n>max)n=max;return n;}
+  function gbp(n){var cents=Math.round(n*100),digits=cents%100===0?0:2;return (cents/100).toLocaleString('en-GB',{style:'currency',currency:'GBP',minimumFractionDigits:digits,maximumFractionDigits:2});}
+  function jobs(cost,job){return job>0?Math.ceil(cost/job):null;}
+  function londonStamp(d){var parts={};new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/London',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(d).forEach(function(p){if(p.type!=='literal')parts[p.type]=p.value;});return parts.year+parts.month+parts.day+parts.hour+parts.minute;}
+  var bfOn=londonStamp(new Date())<='202612012359';
+  var full=(99*12+495)*1.2, promo=99*12*1.2;
+  function render(){
+    var c=num(calls),v=num(value),p=num(rate,100),lost=c*52*(p/100)*v;
+    lostEl.textContent=gbp(lost);
+    detail.textContent=c+' missed calls a week, '+p+'% of them booked, at '+gbp(v)+' a job. This is an estimate.';
+    costEl.textContent='Starter for the first year is '+gbp(full)+' including VAT (£99 × 12, plus £495 setup, then 20% VAT).';
+    var n=jobs(full,v);
+    payEl.textContent=n==null?'Enter an average job value to see how many jobs cover Starter.':'Starter pays for itself if it saves '+n+' jobs a year.';
+    if(bfOn){var m=jobs(promo,v);bfEl.hidden=false;bfEl.textContent='Setup is free with code BLACKFRIDAY until 23:59 on 1 December 2026, so the first year is '+gbp(promo)+' including VAT'+(m==null?'.':'. That pays for itself if it saves '+m+' jobs a year.');}
+  }
+  form.addEventListener('input',render);
+  form.addEventListener('submit',function(e){e.preventDefault();render();});
+  render();
+})();
+</script>
 </body>
 </html>
