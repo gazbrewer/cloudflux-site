@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Burton-on-Trent founder offer | Never miss a job</title>
+<meta name="description" content="First 3 local firms in Burton-on-Trent: a free first month with no card, then 50% off the monthly plan for life, in exchange for a testimonial and a short case study. Setup is free.">
+<link rel="icon" type="image/svg+xml" href="/assets/icon.svg">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="stylesheet" href="/styles.css">
+<style>
+.hp{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}
+.note{background:#eef4ff;border:1px solid #bfd3ff;border-radius:12px;padding:14px 16px;font-size:.95rem}
+.formbox{background:#fff;border:1px solid var(--line);border-radius:20px;padding:26px}
+.status{border-radius:12px;padding:14px 16px;font-weight:600}.status.ok{background:#ecfdf3;border:1px solid #bbf7d0}.status.bad{background:#fef2f2;border:1px solid #fecaca}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="logo" href="/never-miss-a-job/"><img src="/assets/icon.svg" alt="" width="32" height="32">Never miss a <span>job</span></a>
+  <nav><a class="hide-sm" href="/never-miss-a-job/#pricing">Pricing</a><a href="/never-miss-a-job/signup/?promo=BLACKFRIDAY">Sign up</a></nav>
+</div></header>
+
+<main>
+<section class="hero"><div class="wrap" style="max-width:820px">
+  <p class="places">Places left: 3</p>
+  <h1>Burton-on-Trent founder offer: first 3 local firms only.</h1>
+  <p class="lead">A free first month, with no card needed. After that, 50% off your chosen monthly plan for as long as you stay. In return we ask for a written testimonial and a short case study, and your permission to use your business name and quote.</p>
+</div></section>
+
+<section><div class="wrap" style="max-width:820px">
+  <p class="kicker">The offer</p>
+  <h2>Three places. Setup is free.</h2>
+  <ul class="ticks">
+    <li><strong>Free first month.</strong> No card is taken for this founder offer.</li>
+    <li><strong>Then 50% off</strong> the monthly price of Starter, Pro or Complete, for life. VAT at 20% is still added to that discounted price.</li>
+    <li><strong>Setup is free</strong> for these three firms.</li>
+    <li><strong>In exchange:</strong> a written testimonial and a short case study. We will only use your business name and quote with your permission.</li>
+  </ul>
+  <p class="note">Everyone else can still get the setup fee free with code BLACKFRIDAY until 23:59 on 1 December 2026. If you want a founder place, apply before then.</p>
+  <p>Office: <a href="tel:+441615245689">0161 524 5689</a>. Demo line: <a href="tel:+441615700584">0161 570 0584</a>. Or email <a href="mailto:hello@cloudflux.uk">hello@cloudflux.uk</a>.</p>
+
+  <div id="status" role="status" aria-live="polite"></div>
+  <form id="founder-form" class="formbox" action="https://cloudflux-onboarding.cloudflux-uk.workers.dev/founder" method="post" novalidate aria-label="Burton-on-Trent founder offer application">
+    <label>Business name<input name="business_name" autocomplete="organization" maxlength="80" required></label>
+    <label>Trade<input name="trade" maxlength="80" required placeholder="e.g. Plumber, accountant"></label>
+    <label>Town or postcode<input name="town" maxlength="80" required placeholder="e.g. Burton-on-Trent, DE14"></label>
+    <label>Contact name<input name="contact_name" autocomplete="name" maxlength="80" required></label>
+    <label>Business email<input name="email" type="email" autocomplete="email" maxlength="120" required></label>
+    <label>Business phone<input name="phone" type="tel" autocomplete="tel" maxlength="20" required></label>
+    <label>Preferred plan
+      <select name="plan" required>
+        <option value="">Choose…</option>
+        <option value="starter">Starter</option>
+        <option value="pro">Pro</option>
+        <option value="complete">Complete</option>
+      </select>
+    </label>
+    <label>Missed calls per week<input name="missed_calls_per_week" type="number" inputmode="numeric" min="0" step="1" required></label>
+    <div class="hp" aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="off"></label></div>
+    <label class="check"><input type="checkbox" name="consent" required> <span>I agree to Cloudflux Limited contacting this business about the founder offer. I've read the <a href="/privacy.html">privacy notice</a> and the <a href="/terms.html">Terms of Service</a>.</span></label>
+    <button class="btn btn-primary" type="submit" id="submit-btn">Apply for a founder place</button>
+    <p class="small" style="margin:0">No card for this offer. If the form does not go through, email <a href="mailto:hello@cloudflux.uk">hello@cloudflux.uk</a>.</p>
+  </form>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+  <p><strong style="color:#fff">Never miss a job</strong> is a service of Cloudflux Limited, a private limited company registered in England and Wales. Company number 16552311. Registered office: Mansion House, Manchester Road, Altrincham, Cheshire, WA14 4RW.</p>
+  <p><a href="mailto:hello@cloudflux.uk">hello@cloudflux.uk</a> · <a href="/privacy.html">Privacy notice</a> · <a href="/terms.html">Terms of Service</a> · <a href="/dpa.html">Data processing terms</a> · <a href="https://cloudflux-onboarding.cloudflux-uk.workers.dev/cancel">Cancel your plan</a></p>
+  <p>All prices exclude VAT, which is added at 20%.</p>
+  <p><a href="/never-miss-a-job/">Never miss a job</a></p>
+  <p>© 2026 Cloudflux Limited.</p>
+</div></footer>
+<script>
+(function(){
+  var f=document.getElementById('founder-form'),st=document.getElementById('status'),btn=document.getElementById('submit-btn');
+  function show(kind,msg){st.innerHTML='';var d=document.createElement('p');d.className='status '+kind;d.textContent=msg;st.appendChild(d);st.scrollIntoView({behavior:'smooth',block:'center'});}
+  f.addEventListener('submit',function(e){
+    e.preventDefault();
+    if(!f.checkValidity()){f.reportValidity();return;}
+    var data={};new FormData(f).forEach(function(v,k){data[k]=v;});
+    data.consent=f.elements.consent.checked;
+    if((data.website||'').trim()){f.hidden=true;show('ok','Thanks. We have your application and will reply to the business email you gave. If you hear nothing, email hello@cloudflux.uk.');return;}
+    btn.disabled=true;btn.textContent='Sending…';
+    fetch(f.action,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)})
+      .then(function(r){return r.json().catch(function(){return {ok:r.ok};});})
+      .then(function(res){
+        if(res.ok){f.hidden=true;show('ok',res.message||'Thanks. We have your application for a Burton-on-Trent founder place and will reply to the business email you gave. If you hear nothing, email hello@cloudflux.uk.');}
+        else show('bad',res.error||'We could not send that just now. Email hello@cloudflux.uk and we will take it from there.');
+      })
+      .catch(function(){show('bad','We could not reach our server. Email hello@cloudflux.uk and we will take it from there.');})
+      .finally(function(){btn.disabled=false;btn.textContent='Apply for a founder place';});
+  });
+})();
+</script>
+</body>
+</html>
