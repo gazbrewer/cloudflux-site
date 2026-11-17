@@ -156,6 +156,7 @@
     </div>
     <p><a class="btn btn-primary" href="/never-miss-a-job/signup/?promo=BLACKFRIDAY">Start with Starter</a></p>
   </form>
+  <p><a href="/missed-jobs-check/">Take the 60-second missed-jobs check</a></p>
 </div></section>
 
 <section id="trial"><div class="wrap">
@@ -201,20 +202,21 @@
   <p><a href="/">Cloudflux Limited home</a></p>
   <p>© 2026 Cloudflux Limited. Kestrelford Plumbing &amp; Heating is a fictional business used for demonstration only.</p>
 </div></footer>
+<script src="/assets/site.js"></script>
 <script>
 (function(){
   var form=document.getElementById('missed-calc');
   var calls=document.getElementById('missed-calls'),value=document.getElementById('job-value'),rate=document.getElementById('book-rate');
   var lostEl=document.getElementById('lost-revenue'),detail=document.getElementById('lost-detail');
   var costEl=document.getElementById('starter-cost'),payEl=document.getElementById('starter-payback'),bfEl=document.getElementById('bf-cost');
-  function num(el,max){var n=parseFloat(el.value);if(!isFinite(n)||n<0)n=0;if(max!=null&&n>max)n=max;return n;}
-  function gbp(n){var cents=Math.round(n*100),digits=cents%100===0?0:2;return (cents/100).toLocaleString('en-GB',{style:'currency',currency:'GBP',minimumFractionDigits:digits,maximumFractionDigits:2});}
+  function num(el,max){return Cloudflux.readNumber(el.value,max);}
+  function gbp(n){return Cloudflux.formatGbp(n);}
   function jobs(cost,job){return job>0?Math.ceil(cost/job):null;}
   function londonStamp(d){var parts={};new Intl.DateTimeFormat('en-GB',{timeZone:'Europe/London',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(d).forEach(function(p){if(p.type!=='literal')parts[p.type]=p.value;});return parts.year+parts.month+parts.day+parts.hour+parts.minute;}
   var bfOn=londonStamp(new Date())<='202612012359';
   var full=(99*12+495)*1.2, promo=99*12*1.2;
   function render(){
-    var c=num(calls),v=num(value),p=num(rate,100),lost=c*52*(p/100)*v;
+    var c=num(calls),v=num(value),p=num(rate,100),lost=Cloudflux.yearlyMissedRevenue(c,v,p);
     lostEl.textContent=gbp(lost);
     detail.textContent=c+' missed calls a week, '+p+'% of them booked, at '+gbp(v)+' a job. This is an estimate.';
     costEl.textContent='Starter for the first year is '+gbp(full)+' including VAT (£99 × 12, plus £495 setup, then 20% VAT).';

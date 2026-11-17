@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>How many jobs are you missing? | Cloudflux</title>
+<meta name="description" content="See missed jobs and pounds from your own calls, unanswered calls and job value. Your figures only. Then claim one of 3 founder places.">
+<meta property="og:title" content="How many jobs are you missing? | Cloudflux">
+<meta property="og:description" content="See missed jobs and pounds from your own calls, unanswered calls and job value. Your figures only. Then claim one of 3 founder places.">
+<meta property="og:url" content="https://cloudflux.uk/missed-jobs-check/">
+<meta property="og:image" content="https://cloudflux.uk/assets/og-card.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="/assets/icon.svg">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body class="check-page">
+<header class="top"><div class="wrap">
+  <a class="logo" href="/never-miss-a-job/"><img src="/assets/icon.svg" alt="" width="32" height="32">Never miss a <span>job</span></a>
+  <nav><a class="hide-sm" href="/never-miss-a-job/">Never miss a job</a><a class="nav-cta" href="#founder">Founder places</a></nav>
+</div></header>
+
+<main>
+<section class="hero hero-tight"><div class="wrap" style="max-width:820px">
+  <p class="kicker" style="color:#dbe6ff">60-second self-check</p>
+  <h1>How many jobs are you missing?</h1>
+  <p class="lead">Six questions on one screen. Every figure is one you type, and the result updates as you go.</p>
+</div></section>
+
+<section class="section-tight" id="check"><div class="wrap">
+  <div class="check-layout">
+    <form id="self-check" autocomplete="off" aria-label="Your missed-jobs figures">
+      <h2>Your figures</h2>
+
+      <div class="q">
+        <span class="qn" aria-hidden="true">1</span>
+        <div>
+          <label for="trade">Your trade
+            <select id="trade">
+              <option value="">Choose…</option>
+              <option value="Plumber">Plumber</option>
+              <option value="Electrician">Electrician</option>
+              <option value="Heating engineer">Heating engineer</option>
+              <option value="Builder">Builder</option>
+              <option value="Roofer">Roofer</option>
+              <option value="other">Other</option>
+            </select>
+          </label>
+          <label id="trade-other-label" for="trade-other" hidden>Your trade, in your words
+            <input id="trade-other" maxlength="80" autocomplete="organization-title">
+          </label>
+        </div>
+      </div>
+
+      <div class="q">
+        <span class="qn" aria-hidden="true">2</span>
+        <label for="calls-week">Calls you receive in a week
+          <input id="calls-week" type="number" inputmode="numeric" min="0" step="1" placeholder="Your figure">
+        </label>
+      </div>
+
+      <div class="q">
+        <span class="qn" aria-hidden="true">3</span>
+        <div>
+          <fieldset class="seg-set">
+            <legend>How many go unanswered, split by when</legend>
+            <div class="seg" role="radiogroup" aria-label="Enter unanswered calls as numbers or percentages">
+              <label><input type="radio" name="unanswered_mode" id="mode-count" value="count" checked><span>Numbers</span></label>
+              <label><input type="radio" name="unanswered_mode" id="mode-percent" value="percent"><span>Percentages</span></label>
+            </div>
+          </fieldset>
+          <p class="small" id="split-hint">Each box is a number of calls. Your own rough split.</p>
+          <div class="split3">
+            <label for="on-job">While on a job
+              <input id="on-job" type="number" inputmode="decimal" min="0" step="1" placeholder="Your figure">
+            </label>
+            <label for="evenings">Evenings
+              <input id="evenings" type="number" inputmode="decimal" min="0" step="1" placeholder="Your figure">
+            </label>
+            <label for="weekends">Weekends
+              <input id="weekends" type="number" inputmode="decimal" min="0" step="1" placeholder="Your figure">
+            </label>
+          </div>
+          <p class="small" id="unanswered-live">Unanswered per week from your figures: 0.</p>
+        </div>
+      </div>
+
+      <div class="q">
+        <span class="qn" aria-hidden="true">4</span>
+        <label for="job-value">Average job value (£)
+          <input id="job-value" type="number" inputmode="decimal" min="0" step="1" placeholder="Your figure">
+        </label>
+      </div>
+
+      <div class="q">
+        <span class="qn" aria-hidden="true">5</span>
+        <label for="competitor"><span class="q-line"><span>What share of missed callers ring a competitor instead? Your estimate.</span> <span class="pct-out" id="competitor-out">50%</span></span>
+          <input id="competitor" type="range" min="0" max="100" step="1" value="50">
+        </label>
+      </div>
+
+      <div class="q">
+        <span class="qn" aria-hidden="true">6</span>
+        <label for="real-jobs"><span class="q-line"><span>What share of your calls are real jobs? Your estimate.</span> <span class="pct-out" id="real-out">50%</span></span>
+          <input id="real-jobs" type="range" min="0" max="100" step="1" value="50">
+        </label>
+      </div>
+    </form>
+
+    <div class="check-result">
+      <h2>Your result</h2>
+      <div class="calc-out" id="result">
+        <div class="stat-row" aria-live="polite">
+          <p class="stat"><span class="lbl">Missed jobs per month</span><span class="num" id="jobs-month">0</span></p>
+          <p class="stat"><span class="lbl">£ lost per month</span><span class="num" id="lost-month">£0</span></p>
+          <p class="stat"><span class="lbl">£ lost per year</span><span class="num" id="lost-year">£0</span></p>
+        </div>
+        <p class="muted guarantee">These figures are estimates, not a guarantee.</p>
+      </div>
+      <div class="card formula-card">
+        <h3>How this is worked out</h3>
+        <ul class="assumptions" id="assumptions"></ul>
+      </div>
+    </div>
+  </div>
+  <noscript><p class="note">Turn on JavaScript to see the figures update as you type. Or email <a href="mailto:hello@cloudflux.uk">hello@cloudflux.uk</a>.</p></noscript>
+</div></section>
+
+<section class="alt" id="founder"><div class="wrap" style="max-width:760px">
+  <h2>Claim one of 3 founder places (set up by hand, free month, no card)</h2>
+  <p class="lead">Then from £99/month + VAT, 50% off for life for founders in exchange for a testimonial.</p>
+  <p><strong>These figures are estimates, not a guarantee.</strong></p>
+  <p class="small">Or call <a href="tel:+441615245689">0161 524 5689</a> or email <a href="mailto:hello@cloudflux.uk">hello@cloudflux.uk</a>.</p>
+
+  <div id="status" role="status" aria-live="polite"></div>
+  <form id="founder-form" class="formbox" action="https://cloudflux-onboarding.cloudflux-uk.workers.dev/founder" method="post" novalidate aria-label="Founder place application">
+    <label>Business name
+      <input name="business_name" autocomplete="organization" minlength="2" maxlength="80" required>
+    </label>
+    <label>Trade
+      <input name="trade" id="founder-trade" minlength="2" maxlength="80" required>
+    </label>
+    <p class="small">Filled from the trade you chose above. Change it if you need to.</p>
+    <label>Town
+      <input name="town" autocomplete="address-level2" minlength="2" maxlength="80" required>
+    </label>
+    <label>Contact name
+      <input name="contact_name" autocomplete="name" minlength="2" maxlength="60" required>
+    </label>
+    <label>Email
+      <input name="email" type="email" autocomplete="email" maxlength="120" required>
+    </label>
+    <label>Phone <span class="hint">UK number, for example 0161 524 5689.</span>
+      <input name="phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="20" required>
+    </label>
+    <input type="hidden" name="plan" value="starter">
+    <label>Missed calls per week
+      <input name="missed_calls_per_week" id="missed-calls-per-week" type="number" inputmode="numeric" min="0" max="200" step="1" value="0" required>
+    </label>
+    <p class="small">A whole number from 0 to 200, filled from the unanswered calls in your check. <button type="button" class="text-btn" id="use-unanswered">Use your unanswered total (0)</button></p>
+    <div class="hp" aria-hidden="true"><label>Website<input name="website" tabindex="-1" autocomplete="off"></label></div>
+    <label class="check"><input type="checkbox" name="consent"> <span>I agree to Cloudflux Limited contacting me about this founder place, and I have read the <a href="/privacy.html">privacy notice</a></span></label>
+    <button class="btn btn-primary" type="submit" id="submit-btn">Claim a founder place</button>
+    <p class="small" style="margin:0">No card. If the form does not go through, email <a href="mailto:hello@cloudflux.uk">hello@cloudflux.uk</a>.</p>
+  </form>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+  <p><strong style="color:#fff">Never miss a job</strong> is a service of Cloudflux Limited, a private limited company registered in England and Wales. Company number 16552311. Registered office: Mansion House, Manchester Road, Altrincham, Cheshire, WA14 4RW.</p>
+  <p><a href="tel:+441615245689">0161 524 5689</a> · <a href="mailto:hello@cloudflux.uk">hello@cloudflux.uk</a> · <a href="/privacy.html">Privacy notice</a> · <a href="/terms.html">Terms of Service</a> · <a href="/dpa.html">Data processing terms</a> · <a href="https://cloudflux-onboarding.cloudflux-uk.workers.dev/cancel">Cancel your plan</a></p>
+  <p>All prices exclude VAT, which is added at 20%.</p>
+  <p><a href="/missed-jobs-check/">How many jobs are you missing?</a> · <a href="/never-miss-a-job/">Never miss a job</a></p>
+  <p>© 2026 Cloudflux Limited.</p>
+</div></footer>
+<div class="result-dock" aria-hidden="true">
+  <div><span id="dock-jobs">0</span><small>jobs / month</small></div>
+  <div><span id="dock-month">£0</span><small>lost / month</small></div>
+  <div><span id="dock-year">£0</span><small>lost / year</small></div>
+</div>
+<script src="/assets/site.js"></script>
+<script src="/assets/missed-jobs-check.js"></script>
+</body>
+</html>
