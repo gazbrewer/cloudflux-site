@@ -72,6 +72,7 @@
   <p><a href="/never-miss-a-job/">Never miss a job</a></p>
   <p>© 2026 Cloudflux Limited.</p>
 </div></footer>
+<script src="/assets/site.js"></script>
 <script>
 (function(){
   var f=document.getElementById('founder-form'),st=document.getElementById('status'),btn=document.getElementById('submit-btn');
@@ -83,9 +84,9 @@
     data.consent=f.elements.consent.checked;
     if((data.website||'').trim()){f.hidden=true;show('ok','Thanks. We have your application and will reply to the business email you gave. If you hear nothing, email hello@cloudflux.uk.');return;}
     btn.disabled=true;btn.textContent='Sending…';
-    fetch(f.action,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)})
-      .then(function(r){return r.json().catch(function(){return {ok:r.ok};});})
-      .then(function(res){
+    Cloudflux.postJson(f.action, data)
+      .then(function(result){
+        var res=result.parsed&&result.body&&typeof result.body==='object'?result.body:{ok:result.ok};
         if(res.ok){f.hidden=true;show('ok',res.message||'Thanks. We have your application for a Burton-on-Trent founder place and will reply to the business email you gave. If you hear nothing, email hello@cloudflux.uk.');}
         else show('bad',res.error||'We could not send that just now. Email hello@cloudflux.uk and we will take it from there.');
       })

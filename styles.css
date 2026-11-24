@@ -60,6 +60,7 @@ ul.ticks li:before{content:"✓";position:absolute;left:0;color:var(--ok);font-w
 details{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:10px 0}
 summary{font-weight:700;cursor:pointer}details p{margin:.7em 0 0;color:var(--muted)}
 form{display:grid;gap:14px}label{font-weight:600;font-size:.95rem}
+[hidden]{display:none !important}
 input,select{width:100%;padding:13px;border:1px solid #cbd5e1;border-radius:10px;font:inherit;margin-top:4px;background:#fff}
 input:focus,select:focus{outline:3px solid #bfd3ff;border-color:var(--brand)}
 .check{display:flex;gap:10px;align-items:flex-start;font-weight:400}.check input{width:auto;margin-top:5px}
@@ -68,3 +69,58 @@ footer{background:#0b1220;color:#94a3b8;padding:36px 0;font-size:.9rem}footer a{
 .legal h2{font-size:1.4rem;margin-top:1.6em}.legal table{border-collapse:collapse;width:100%;font-size:.92rem}
 .legal th,.legal td{border:1px solid var(--line);padding:8px;text-align:left;vertical-align:top}
 .banner{background:#fde68a;color:#78350f;padding:12px 16px;border-radius:10px;font-weight:600}
+/* Shared form bits used by the founder forms */
+.hp{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}
+.note{background:#eef4ff;border:1px solid #bfd3ff;border-radius:12px;padding:14px 16px;font-size:.95rem}
+.formbox{background:#fff;border:1px solid var(--line);border-radius:20px;padding:26px}
+.status{border-radius:12px;padding:14px 16px;font-weight:600}.status.ok{background:#ecfdf3;border:1px solid #bbf7d0}.status.bad{background:#fef2f2;border:1px solid #fecaca}
+.status .places-left{display:block;margin-top:4px}
+.hint{display:block;font-weight:400;font-size:.85rem;color:var(--muted)}
+.err{display:block;color:#b91c1c;font-weight:600;font-size:.85rem;margin-top:4px}
+.text-btn{background:none;border:0;padding:0;color:var(--brand);font:inherit;font-weight:700;cursor:pointer;text-decoration:underline}
+.btn:disabled{opacity:.7;cursor:progress}
+input[type="range"]{padding:0;border:0;background:transparent;accent-color:var(--brand);height:32px;box-shadow:none}
+input[type="range"]:focus{outline:3px solid #bfd3ff;border-color:transparent}
+/* Missed-jobs self-check */
+.check-page section, .check-page .check-result{scroll-margin-top:74px}
+.hero-tight{padding:36px 0 28px}
+.hero-tight h1{font-size:clamp(1.8rem,5vw,2.7rem)}
+.section-tight{padding:28px 0 48px}
+.check-layout{display:grid;gap:22px;align-items:start}
+@media(min-width:900px){
+  .check-layout{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr)}
+  .check-result{position:sticky;top:78px}
+}
+.check-page .q{display:grid;grid-template-columns:32px minmax(0,1fr);gap:10px;align-items:start}
+.check-page .q label{display:block}
+.qn{width:28px;height:28px;border-radius:50%;background:var(--brand);color:#fff;font-weight:800;display:grid;place-items:center;font-size:.85rem;margin-top:2px}
+fieldset.seg-set{border:0;padding:0;margin:0 0 8px}
+fieldset.seg-set legend{font-weight:700;font-size:.95rem;padding:0}
+.seg{display:flex;gap:8px}
+.seg label{position:relative;flex:1;margin:0;font-size:.92rem}
+.seg input{position:absolute;width:1px;height:1px;padding:0;margin:0;overflow:hidden;clip:rect(0 0 0 0)}
+.seg span{display:block;text-align:center;padding:10px 8px;border:1px solid #cbd5e1;border-radius:10px;background:#fff}
+.seg input:checked+span{background:var(--brand);color:#fff;border-color:var(--brand)}
+.seg input:focus-visible+span,.seg input:focus+span{outline:3px solid #bfd3ff}
+.split3{display:grid;gap:10px}
+@media(min-width:640px){.split3{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.pct-out{color:var(--brand);font-weight:800;white-space:nowrap}
+.q-line{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.stat .lbl{display:block;color:#dbe6ff;font-size:.88rem;font-weight:700}
+.stat .num{display:block;font-size:clamp(1.7rem,5vw,2.3rem);font-weight:800;letter-spacing:-.03em;line-height:1.1;font-variant-numeric:tabular-nums}
+.calc-out .stat{margin:0 0 12px}
+.calc-out .guarantee{margin:8px 0 0;font-weight:700}
+.formula-card{margin-top:14px}
+.formula-card h3{font-size:1.05rem}
+.assumptions{margin:0;padding-left:1.15em;color:var(--muted);font-size:.92rem}
+.assumptions li{margin:.45em 0}
+.result-dock{display:none}
+@media(max-width:899px){
+  body.check-page{padding-bottom:76px}
+  body.check-page.dock-off{padding-bottom:0}
+  .result-dock{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));position:fixed;left:0;right:0;bottom:0;z-index:30;background:#0b1f4d;color:#fff;text-align:center;padding:8px 6px calc(8px + env(safe-area-inset-bottom));box-shadow:0 -8px 24px rgba(11,31,77,.25)}
+  body.check-page.dock-off .result-dock,
+  body.check-page.result-visible .result-dock{display:none}
+  .result-dock span{display:block;font-weight:800;font-size:.92rem;letter-spacing:-.02em;line-height:1.15;font-variant-numeric:tabular-nums}
+  .result-dock small{display:block;color:#dbe6ff;font-size:.68rem;font-weight:600}
+}
